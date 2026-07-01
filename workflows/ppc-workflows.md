@@ -1,0 +1,406 @@
+---
+type: concept
+title: Amazon PPC Workflows
+domain: Amazon PPC / VA Training
+created: 2026-06-29
+related: [[ppc-sops]], [ppc-templates]], [amazon-ppc-fundamentals]]
+---
+
+# Amazon PPC Workflows
+
+> Visual, structured workflow descriptions for core PPC processes. Use for training, process design, and automation planning.
+
+---
+
+## Workflow 1: Keyword Research → Campaign Creation → Optimization Loop
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    KEYWORD RESEARCH                         │
+│                                                             │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐  │
+│  │ Competitor    │    │ Amazon Auto   │    │ Helium 10    │  │
+│  │ ASIN Analysis │    │ Campaign Data │    │ Cerebro/     │  │
+│  │ (Cerebro)    │    │ (Search Terms)│    │ Magnet       │  │
+│  └──────┬───────┘    └──────┬───────┘    └──────┬───────┘  │
+│         │                   │                   │           │
+│         └───────────────────┼───────────────────┘           │
+│                             ▼                               │
+│                    ┌──────────────┐                         │
+│                    │ Keyword List  │                         │
+│                    │ (50-100 terms)│                         │
+│                    └──────┬───────┘                         │
+└───────────────────────────┼─────────────────────────────────┘
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   CAMPAIGN CREATION                         │
+│                                                             │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐  │
+│  │ Auto Campaign │    │ Manual Exact │    │ Manual Phrase│  │
+│  │ (Discovery)   │    │ (Top 10 KWs) │    │ (20-30 KWs) │  │
+│  │ $10-15/day    │    │ $15-20/day   │    │ $10-15/day  │  │
+│  └──────┬───────┘    └──────┬───────┘    └──────┬───────┘  │
+│         │                   │                   │           │
+│         └───────────────────┼───────────────────┘           │
+│                             ▼                               │
+│                    ┌──────────────┐                         │
+│                    │ 7-14 Day     │                         │
+│                    │ Data Collect │                         │
+│                    └──────┬───────┘                         │
+└───────────────────────────┼─────────────────────────────────┘
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    OPTIMIZATION LOOP                         │
+│                                                             │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │                                                      │   │
+│  │   ┌──────────┐    ┌──────────┐    ┌──────────┐     │   │
+│  │   │ Search   │    │ Bid      │    │ Budget   │     │   │
+│  │   │ Term     │───▶│ Adjust   │───▶│ Review   │     │   │
+│  │   │ Analysis │    │          │    │          │     │   │
+│  │   └──────────┘    └──────────┘    └──────────┘     │   │
+│  │        │                                       │     │   │
+│  │        │         ┌──────────┐                  │     │   │
+│  │        │         │ Negate   │                  │     │   │
+│  │        └────────▶│ Losers   │                  │     │   │
+│  │                  └──────────┘                  │     │   │
+│  │                       │                        │     │   │
+│  │                  ┌──────────┐                  │     │   │
+│  │                  │ Harvest  │◀─────────────────┘     │   │
+│  │                  │ Winners  │                        │   │
+│  │                  └──────────┘                        │   │
+│  │                       │                              │   │
+│  │                       ▼                              │   │
+│  │                  ┌──────────┐                        │   │
+│  │                  │ New KWs  │                        │   │
+│  │                  │ → Manual │                        │   │
+│  │                  └──────────┘                        │   │
+│  │                                                      │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                                                             │
+│              ◀──── Repeat Weekly ────▶                      │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Decision Points
+| Step | Decision | Criteria |
+|------|----------|----------|
+| Keyword Selection | Include/exclude? | Relevance > 7/10, Search volume > 100/mo |
+| Campaign Type | Auto vs Manual? | Auto for discovery, Manual for proven terms |
+| Bid Setting | Starting bid? | Target ACoS × Price × Estimated CVR |
+| Harvest | Move to manual? | 2+ orders, ACoS < target |
+| Negate | Add negative? | 15+ clicks, 0 orders OR ACoS > 2x break-even |
+| Budget Increase | Scale up? | ACoS < target for 7+ consecutive days |
+
+---
+
+## Workflow 2: Search Term Harvesting Flow
+
+```
+Search Term Report Download
+         │
+         ▼
+┌─────────────────┐
+│ Sort by Spend    │
+│ (Descending)     │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Filter: 5+ Clicks│
+└────────┬────────┘
+         │
+         ▼
+    ┌────┴────┐
+    │         │
+    ▼         ▼
+┌────────┐ ┌────────┐
+│Orders ≥│ │Orders = │
+│   1    │ │   0    │
+└───┬────┘ └───┬────┘
+    │          │
+    ▼          ▼
+┌────────┐ ┌────────┐
+│ACoS <  │ │Clicks ≥│
+│Target? │ │  15?   │
+└───┬────┘ └───┬────┘
+    │          │
+   YES        YES
+    │          │
+    ▼          ▼
+┌────────┐ ┌────────┐
+│HARVEST │ │NEGATE  │
+│→ Manual│ │Exact   │
+│ Exact  │ │        │
+└────────┘ └────────┘
+
+    │ (if ACoS > target)
+    ▼
+┌────────┐
+│BID     │
+│REDUCE  │
+│-15%    │
+└────────┘
+```
+
+### Harvesting Rules
+1. **Harvest to Exact Match** when: 2+ orders AND ACoS < target
+2. **Negate Exact** when: 15+ clicks AND 0 orders
+3. **Negate Phrase** when: term is completely irrelevant to product
+4. **Reduce Bid** when: ACoS > target but has conversions
+5. **Increase Bid** when: CVR > 15% but impressions are low
+
+---
+
+## Workflow 3: Campaign Structure Decision Tree
+
+```
+New Product to Advertise
+         │
+         ▼
+┌─────────────────┐
+│ Brand Registry? │
+└────────┬────────┘
+         │
+    YES ─┼─ NO
+    │         │
+    ▼         ▼
+┌────────┐ ┌────────┐
+│SP + SB │ │SP Only │
+│+ SD    │ │        │
+└───┬────┘ └───┬────┘
+    │          │
+    ▼          ▼
+┌────────────────────────────────────────┐
+│ Campaign Structure (per product)       │
+│                                        │
+│ 1. Auto Campaign (discovery)           │
+│    └─ Budget: 20% of product budget    │
+│                                        │
+│ 2. Manual Exact (top 10 keywords)      │
+│    └─ Budget: 40% of product budget    │
+│                                        │
+│ 3. Manual Phrase (expansion)           │
+│    └─ Budget: 25% of product budget    │
+│                                        │
+│ 4. Product Targeting (competitors)     │
+│    └─ Budget: 15% of product budget    │
+│                                        │
+│ [If Brand Registry:]                   │
+│ 5. Sponsored Brands (brand defense)    │
+│    └─ Budget: from brand budget        │
+│                                        │
+│ 6. Sponsored Display (retargeting)     │
+│    └─ Budget: from growth budget       │
+└────────────────────────────────────────┘
+```
+
+### When to Use Each Ad Type
+| Ad Type | Use When | Goal |
+|---------|----------|------|
+| Sponsored Products | Always (baseline) | Direct sales, keyword ranking |
+| Sponsored Brands | Brand Registry available | Brand awareness, storefront traffic |
+| Sponsored Brands Video | Product needs demonstration | Higher CTR, stop the scroll |
+| Sponsored Display | Retargeting, conquesting | Remarketing, competitor audiences |
+
+---
+
+## Workflow 4: Reporting Workflow
+
+```
+Data Collection (Day 1)
+         │
+         ▼
+┌─────────────────┐
+│ Pull Data From:  │
+│ - Ad Console     │
+│ - Seller Central │
+│ - Helium 10      │
+│ - GA4 (if ext.)  │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Calculate KPIs:  │
+│ - ACoS / ROAS   │
+│ - TACoS          │
+│ - CTR / CVR      │
+│ - CPC            │
+│ - Impression Share│
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Compare:         │
+│ - vs Last Month  │
+│ - vs Target      │
+│ - vs Category    │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Analyze:         │
+│ - What worked    │
+│ - What didn't    │
+│ - Why            │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Recommend:       │
+│ - Actions        │
+│ - Budget changes │
+│ - New strategies │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Deliver:         │
+│ - Report doc     │
+│ - Client call    │
+│ - Action items   │
+└─────────────────┘
+```
+
+### Reporting Cadence
+| Report | Frequency | Time Required | Content |
+|--------|-----------|---------------|---------|
+| Health Check | Daily | 5 min | Anomalies, budget pacing |
+| Search Term Review | Weekly | 30 min | Harvest, negate, adjust |
+| Performance Report | Monthly | 2 hrs | Full metrics, trends, strategy |
+| Strategic Review | Quarterly | Half day | Budget reallocation, goals |
+
+---
+
+## Workflow 5: Seasonal Preparation
+
+```
+T-8 Weeks: Research
+┌─────────────────────────────────────┐
+│ • Keyword research (seasonal terms) │
+│ • Competitor analysis               │
+│ • Historical data review            │
+│ • Budget planning                   │
+└──────────────────┬──────────────────┘
+                   ▼
+T-6 Weeks: Build
+┌─────────────────────────────────────┐
+│ • Create seasonal campaigns         │
+│ • Set up campaign structure         │
+│ • Load keywords and bids            │
+│ • Prepare ad creative (SB/SD)       │
+└──────────────────┬──────────────────┘
+                   ▼
+T-4 Weeks: Test
+┌─────────────────────────────────────┐
+│ • Run at 50% target budget          │
+│ • Gather conversion data            │
+│ • Optimize bids                     │
+│ • Refine targeting                  │
+└──────────────────┬──────────────────┘
+                   ▼
+T-2 Weeks: Ramp
+┌─────────────────────────────────────┐
+│ • Increase to 75% budget            │
+│ • Final bid optimization            │
+│ • Launch SB video                   │
+│ • Set up dayparting                 │
+└──────────────────┬──────────────────┘
+                   ▼
+T-0: Peak Season
+┌─────────────────────────────────────┐
+│ • Full budget deployment            │
+│ • Hourly monitoring (peak days)     │
+│ • Real-time bid adjustments         │
+│ • Competitor monitoring             │
+└──────────────────┬──────────────────┘
+                   ▼
+T+2 Weeks: Wind Down
+┌─────────────────────────────────────┐
+│ • Gradual budget reduction          │
+│ • Harvest winning terms             │
+│ • Archive seasonal campaigns        │
+│ • Document learnings                │
+└─────────────────────────────────────┘
+```
+
+---
+
+## Workflow 6: A/B Testing Process
+
+```
+┌─────────────────────────────────────┐
+│ 1. HYPOTHESIS                       │
+│ "Changing [element] will improve    │
+│  [metric] by [amount]"              │
+└──────────────────┬──────────────────┘
+                   ▼
+┌─────────────────────────────────────┐
+│ 2. TEST DESIGN                      │
+│ • Control: current version          │
+│ • Variant: proposed change          │
+│ • Metric: primary KPI               │
+│ • Duration: 2-4 weeks minimum       │
+│ • Budget: split evenly              │
+└──────────────────┬──────────────────┘
+                   ▼
+┌─────────────────────────────────────┐
+│ 3. EXECUTION                        │
+│ • Launch both versions              │
+│ • Don't touch for 2 weeks           │
+│ • Monitor for external factors      │
+└──────────────────┬──────────────────┘
+                   ▼
+┌─────────────────────────────────────┐
+│ 4. ANALYSIS                         │
+│ • Statistical significance? (95%+)  │
+│ • Which version won?                │
+│ • By how much?                      │
+│ • Any confounding factors?          │
+└──────────────────┬──────────────────┘
+                   ▼
+┌─────────────────────────────────────┐
+│ 5. DECISION                         │
+│ • Implement winner                  │
+│ • OR: inconclusive — extend test    │
+│ • OR: neither — try new hypothesis  │
+└──────────────────┬──────────────────┘
+                   ▼
+┌─────────────────────────────────────┐
+│ 6. DOCUMENT                         │
+│ • Log results in test tracker       │
+│ • Update SOPs if process changed    │
+│ • Share learnings with team         │
+└─────────────────────────────────────┘
+```
+
+### What to A/B Test
+| Element | Example | Impact |
+|---------|---------|--------|
+| Main Image | Lifestyle vs. white background | CTR |
+| Title | Short vs. keyword-rich | CTR, CVR |
+| Price | $29.99 vs. $27.99 | CVR, ACoS |
+| Bullet Points | Feature-focused vs. benefit-focused | CVR |
+| A+ Content | With vs. without | CVR |
+| Bid Strategy | Dynamic Down vs. Up and Down | ACoS, Volume |
+
+---
+
+## Using Workflows in Coaching
+
+### Visual Training
+- Print workflows as posters for study area
+- Walk through each step on shared screen
+- Have student trace the workflow with a real account
+
+### Assessment
+- Give student a scenario: "Here's a product, walk me through Workflow 3"
+- Grade on: correct decision points, logical flow, documentation
+
+### Process Improvement
+- After student masters workflow, ask: "How would you improve this?"
+- Encourage critical thinking — workflows evolve
+
+---
+*Sources: Trellis SOP-to-workflow guide, Helium 10 automation blog, Amazon Ads documentation*
+*Last updated: 2026-06-29*
