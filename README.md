@@ -5,6 +5,17 @@
 Built by [Ryan Roland Dabao](https://linkedin.com/in/ryan-roland-dabao-55416187) — Amazon PPC Lead Manager with 10+ years of remote eCommerce experience and $500K+/month in managed ad spend.
 
 
+
+## Tech Stack
+
+| Resource | Format |
+|----------|--------|
+| Documentation | Markdown |
+| Templates | XLSX, Markdown |
+| Automation Scripts | Python |
+| Hosting | GitHub Pages |
+| Docs Generator | MkDocs |
+
 ## 📊 Codegraph
 
 See [codegraphs/ppc-tools-for-va.md](./codegraphs/ppc-tools-for-va.md) for the full dependency graph.
