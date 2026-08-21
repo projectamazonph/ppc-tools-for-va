@@ -2,7 +2,7 @@
 
 **Free, open-source Amazon PPC toolkit for Filipino VAs transitioning into PPC specialist roles.**
 
-Built by [Ryan Roland Dabao](https://linkedin.com/in/ryan-roland-dabao-55416187) — Amazon PPC Lead Manager with 10+ years of remote eCommerce experience and $500K+/month in managed ad spend.
+Built by [Ryan Roland Dabao](https://linkedin.com/in/ryan-roland-dabao-55416187) — Amazon PPC Lead Manager with 10+ years of remote eCommerce experience and $500K+/month in managed ad spend.\n\n🌐 **[Open the PPC Tools Resource Hub](https://projectamazonph.github.io/ppc-tools-for-va/)**
 
 
 
