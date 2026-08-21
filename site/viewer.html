@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Loading... - PPC Tools for VAs</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root {
       --primary: #FF6B35;
       --primary-dark: #e55a2b;
       --success: #10B981;
       --warning: #F59E0B;
-      --danger: #EF4444;
       --surface: #ffffff;
       --surface-alt: #F7FAFC;
       --text: #1A202C;
@@ -30,7 +28,7 @@
     }
 
     .quiz-container {
-      max-width: 800px;
+      max-width: 700px;
       margin: 0 auto;
       padding: 2rem;
     }
@@ -42,16 +40,10 @@
 
     .quiz-header h1 {
       font-family: 'Manrope', sans-serif;
-      font-size: 2.5rem;
+      font-size: 2rem;
       font-weight: 800;
       color: var(--text);
       margin: 0 0 0.5rem 0;
-    }
-
-    .quiz-header p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      margin: 0;
     }
 
     .level-tabs {
@@ -59,65 +51,38 @@
       gap: 0.5rem;
       flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 2rem;
-      padding: 1rem;
-      background: var(--surface);
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 1.5rem;
     }
 
     .level-tab {
-      padding: 0.75rem 1.5rem;
+      padding: 0.6rem 1rem;
       border: none;
-      background: var(--surface-alt);
+      background: var(--surface);
       color: var(--text-muted);
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 600;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
-    .level-tab:hover {
-      background: var(--border);
-    }
-
-    .level-tab.active {
-      background: var(--primary);
-      color: white;
-    }
-
-    .quiz-progress {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      padding: 1rem;
-      background: var(--surface);
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
+    .level-tab:hover { background: var(--border); }
+    .level-tab.active { background: var(--primary); color: white; }
 
     .progress-bar {
-      flex: 1;
-      height: 8px;
+      height: 6px;
       background: var(--border);
-      border-radius: 4px;
+      border-radius: 3px;
+      margin-bottom: 1.5rem;
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-      border-radius: 4px;
       transition: width 0.3s ease;
-    }
-
-    .progress-text {
-      font-weight: 600;
-      color: var(--text);
-      white-space: nowrap;
     }
 
     .question-card {
@@ -125,115 +90,74 @@
       border-radius: 16px;
       padding: 2rem;
       margin-bottom: 1.5rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       animation: slideIn 0.3s ease;
     }
 
     @keyframes slideIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .question-number {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
+    .question-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
       margin-bottom: 1rem;
     }
 
+    .question-number {
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+    }
+
+    .question-category {
+      background: #EEF2FF;
+      color: #4F46E5;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+    }
+
     .question-text {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 600;
       color: var(--text);
       margin-bottom: 1.5rem;
       line-height: 1.5;
     }
 
-    .options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .option {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.25rem;
+    .reveal-btn {
+      width: 100%;
+      padding: 1rem;
       background: var(--surface-alt);
-      border: 2px solid transparent;
+      border: 2px dashed var(--border);
       border-radius: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .option:hover {
+    .reveal-btn:hover {
       border-color: var(--primary);
+      color: var(--primary);
       background: #FFF5F0;
     }
 
-    .option.selected {
-      border-color: var(--primary);
-      background: #FFF5F0;
-    }
-
-    .option.correct {
-      border-color: var(--success);
-      background: #ECFDF5;
-    }
-
-    .option.incorrect {
-      border-color: var(--danger);
-      background: #FEF2F2;
-    }
-
-    .option-marker {
-      width: 28px;
-      height: 28px;
-      border: 2px solid var(--border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: var(--text-muted);
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    .option.selected .option-marker {
-      border-color: var(--primary);
-      background: var(--primary);
-      color: white;
-    }
-
-    .option.correct .option-marker {
-      border-color: var(--success);
-      background: var(--success);
-      color: white;
-    }
-
-    .option.incorrect .option-marker {
-      border-color: var(--danger);
-      background: var(--danger);
-      color: white;
-    }
-
-    .option-text {
-      color: var(--text);
-      font-size: 1rem;
-    }
-
-    .explanation {
+    .answer-card {
       margin-top: 1rem;
-      padding: 1rem;
-      background: #FFFBEB;
-      border-left: 4px solid var(--warning);
-      border-radius: 0 8px 8px 0;
+      padding: 1.25rem;
+      background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+      border-left: 4px solid var(--success);
+      border-radius: 0 10px 10px 0;
       animation: fadeIn 0.3s ease;
     }
 
@@ -242,17 +166,18 @@
       to { opacity: 1; }
     }
 
-    .explanation-title {
+    .answer-label {
       font-weight: 700;
-      color: var(--warning);
+      color: var(--success);
       margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .explanation-text {
+    .answer-text {
       color: var(--text);
+      font-size: 1rem;
       line-height: 1.6;
       margin: 0;
     }
@@ -261,15 +186,15 @@
       display: flex;
       justify-content: space-between;
       gap: 1rem;
-      margin-top: 2rem;
     }
 
     .quiz-btn {
-      padding: 1rem 2rem;
+      flex: 1;
+      padding: 0.9rem 1.5rem;
       border: none;
       border-radius: 10px;
       font-family: inherit;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -287,82 +212,76 @@
     }
 
     .quiz-btn.secondary {
-      background: var(--surface-alt);
+      background: var(--surface);
       color: var(--text);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    .quiz-btn.secondary:hover {
-      background: var(--border);
-    }
-
-    .quiz-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
+    .quiz-btn.secondary:hover { background: var(--border); }
+    .quiz-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
     .results-card {
       text-align: center;
       padding: 3rem 2rem;
       background: var(--surface);
       border-radius: 16px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
 
-    .results-icon {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-    }
-
+    .results-icon { font-size: 4rem; margin-bottom: 1rem; }
     .results-score {
       font-family: 'Manrope', sans-serif;
-      font-size: 3rem;
+      font-size: 3.5rem;
       font-weight: 800;
       color: var(--primary);
       margin-bottom: 0.5rem;
     }
 
-    .results-message {
-      font-size: 1.25rem;
-      color: var(--text-muted);
+    .results-message { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+    .results-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
       margin-bottom: 2rem;
     }
 
-    .results-details {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .result-stat {
-      padding: 1rem;
-      background: var(--surface-alt);
-      border-radius: 10px;
-    }
-
-    .result-stat-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .result-stat-label {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
+    .stat-item { text-align: center; }
+    .stat-value { font-size: 2rem; font-weight: 700; color: var(--text); }
+    .stat-label { font-size: 0.85rem; color: var(--text-muted); }
 
     .breadcrumb { padding: 1rem 2rem; background: var(--surface); border-bottom: 1px solid var(--border); }
     .breadcrumb a { color: var(--primary); text-decoration: none; }
-    .breadcrumb a:hover { text-decoration: underline; }
-    .error { background: #FEF2F2; color: #DC2626; padding: 1rem; border-radius: 8px; margin: 2rem; }
-    footer { text-align: center; padding: 2rem; color: var(--text-muted); }
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.9rem; }
+
+    .doc-viewer {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      max-width: 800px;
+      margin: 2rem auto;
+    }
+
+    .doc-viewer h1 { font-family: 'Manrope', sans-serif; font-size: 2rem; margin-bottom: 1rem; }
+    .doc-viewer h2 { font-size: 1.4rem; margin: 1.5rem 0 0.75rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; }
+    .doc-viewer h3 { font-size: 1.1rem; margin: 1.25rem 0 0.5rem; }
+    .doc-viewer p { line-height: 1.7; color: var(--text-muted); margin: 0.75rem 0; }
+    .doc-viewer ul { padding-left: 1.5rem; }
+    .doc-viewer li { margin: 0.5rem 0; line-height: 1.6; color: var(--text-muted); }
+    .doc-viewer code { background: #F1F5F9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    .doc-viewer pre { background: #1E293B; color: #E2E8F0; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+    .doc-viewer pre code { background: none; padding: 0; }
+    .doc-viewer blockquote { border-left: 4px solid var(--primary); padding-left: 1rem; margin: 1rem 0; font-style: italic; color: var(--text-muted); }
+    .doc-viewer table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .doc-viewer th, .doc-viewer td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
+    .doc-viewer th { background: var(--surface-alt); font-weight: 600; }
 
     @media (max-width: 600px) {
-      .level-tabs { padding: 0.75rem; gap: 0.5rem; }
-      .level-tab { padding: 0.5rem 1rem; font-size: 0.85rem; }
+      .level-tabs { gap: 0.4rem; }
+      .level-tab { padding: 0.5rem 0.75rem; font-size: 0.75rem; }
       .question-card { padding: 1.5rem; }
-      .results-details { grid-template-columns: 1fr; }
+      .results-stats { flex-direction: column; gap: 1rem; }
     }
   </style>
 </head>
@@ -370,64 +289,60 @@
 <header><a class="brand" href="index.html"><span>PPC <em>Tools</em><small>for Virtual Assistants</small></span></a><nav><a href="index.html">Home</a></nav></header>
 <div class="breadcrumb"><a href="index.html">Home</a> / <span id="doc-title">Loading...</span></div>
 
-<div class="quiz-container" id="quiz-app">
-  <p>Loading quiz...</p>
-</div>
+<div class="quiz-container" id="quiz-app"><p>Loading...</p></div>
 
 <footer><p>&copy; 2026 Ryan Roland Dabao. MIT licensed.</p></footer>
 
 <script>
-const LEVELS = {
-  'all': { name: 'All Questions', filter: () => true },
-  'beginner': { name: 'Beginner', filter: (q) => q.level === 1 },
-  'intermediate': { name: 'Intermediate', filter: (q) => q.level === 2 },
-  'advanced': { name: 'Advanced', filter: (q) => q.level === 3 },
-  'expert': { name: 'Expert', filter: (q) => q.level === 4 },
-  'scenario': { name: 'Scenario-Based', filter: (q) => q.level === 5 }
+const CATEGORIES = {
+  'all': { name: 'All', filter: () => true },
+  'match-types': { name: 'Match Types', filter: q => q.category?.toLowerCase().includes('match') },
+  'campaign-types': { name: 'Campaign Types', filter: q => q.category?.toLowerCase().includes('campaign') },
+  'metrics': { name: 'Metrics', filter: q => q.category?.toLowerCase().includes('metric') },
+  'bidding': { name: 'Bidding', filter: q => q.category?.toLowerCase().includes('bid') },
+  'strategy': { name: 'Strategy', filter: q => q.category?.toLowerCase().includes('strategy') }
 };
 
 let questions = [];
-let currentLevel = 'beginner';
+let currentCat = 'all';
 let currentIndex = 0;
-let answers = {};
+let revealed = {};
 let quizData = null;
 
 function parseQuiz(markdown) {
   const lines = markdown.split('\n');
   const questions = [];
   let currentQ = null;
+  let currentCategory = 'General';
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
+  for (const line of lines) {
+    const trimmed = line.trim();
 
-    // Detect question level headers
-    if (line.match(/^##?\s*Level\s*1/i) || line.includes('Beginner')) {
+    // Detect category headers
+    if (trimmed.startsWith('### ')) {
+      currentCategory = trimmed.replace('### ', '').trim();
       continue;
     }
-    if (line.match(/^##?\s*Q\d+/)) {
+
+    // Detect Level headers
+    if (trimmed.startsWith('## Level') || trimmed.startsWith('## Level')) {
+      continue;
+    }
+
+    // Detect questions
+    const qMatch = trimmed.match(/^Q(\d+)\.\s*(.+)/);
+    if (qMatch) {
       if (currentQ) questions.push(currentQ);
-      const numMatch = line.match(/Q(\d+)/);
       currentQ = {
-        number: numMatch ? parseInt(numMatch[1]) : questions.length + 1,
-        text: '',
-        options: [],
-        answer: 0,
-        explanation: '',
-        level: 1
+        number: parseInt(qMatch[1]),
+        text: qMatch[2].trim(),
+        answer: '',
+        category: currentCategory
       };
-    } else if (currentQ) {
-      if (line.match(/^[A-D]\.\s+/)) {
-        currentQ.options.push(line.replace(/^[A-D]\.\s+/, '').trim());
-      } else if (line.toLowerCase().includes('answer:') || line.toLowerCase().includes('**answer**')) {
-        const ansMatch = line.match(/([A-D])/i);
-        if (ansMatch) currentQ.answer = ansMatch[1].toUpperCase().charCodeAt(0) - 65;
-      } else if (line.toLowerCase().includes('explanation:') || line.includes('**Explanation**')) {
-        currentQ.explanation = line.replace(/^[A-D]\.\s+/i, '').replace(/explanation:?/i, '').replace(/\*\*/g, '').trim();
-      } else if (line && !line.startsWith('>') && !line.startsWith('#') && currentQ.options.length > 0) {
-        currentQ.explanation += ' ' + line;
-      } else if (line && !line.startsWith('#') && !line.startsWith('>') && currentQ.options.length === 0) {
-        currentQ.text += (currentQ.text ? ' ' : '') + line;
-      }
+    } else if (currentQ && trimmed.startsWith('**A:**')) {
+      currentQ.answer = trimmed.replace('**A:**', '').replace(/\*\*/g, '').trim();
+    } else if (currentQ && trimmed) {
+      currentQ.answer += ' ' + trimmed.replace(/\*\*/g, '').trim();
     }
   }
   if (currentQ) questions.push(currentQ);
@@ -435,142 +350,89 @@ function parseQuiz(markdown) {
 }
 
 function renderQuiz() {
-  const filtered = questions.filter(LEVELS[currentLevel].filter);
+  const filtered = questions.filter(CATEGORIES[currentCat].filter);
   const app = document.getElementById('quiz-app');
 
   if (filtered.length === 0) {
-    app.innerHTML = `<div class="error">No questions found for this level.</div>`;
+    app.innerHTML = `<div class="question-card"><p>No questions found for this category.</p></div>`;
     return;
   }
 
-  const totalAnswered = Object.keys(answers).filter(k => answers[k] !== null).length;
-  const currentQ = filtered[currentIndex];
+  const q = filtered[currentIndex];
+  const isRevealed = revealed[q.number];
 
-  let html = `
+  app.innerHTML = `
     <div class="quiz-header">
-      <h1>${LEVELS[currentLevel].name}</h1>
+      <h1>${CATEGORIES[currentCat].name}</h1>
       <p>${filtered.length} questions</p>
     </div>
 
     <div class="level-tabs">
-      ${Object.entries(LEVELS).map(([key, val]) => `
-        <button class="level-tab ${currentLevel === key ? 'active' : ''}" onclick="setLevel('${key}')">${val.name}</button>
+      ${Object.entries(CATEGORIES).map(([key, val]) => `
+        <button class="level-tab ${currentCat === key ? 'active' : ''}" onclick="setCategory('${key}')">${val.name}</button>
       `).join('')}
     </div>
 
-    <div class="quiz-progress">
-      <span class="progress-text">Question ${currentIndex + 1} of ${filtered.length}</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: ${((currentIndex + 1) / filtered.length) * 100}%"></div>
-      </div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: ${((currentIndex + 1) / filtered.length) * 100}%"></div>
     </div>
 
     <div class="question-card">
-      <span class="question-number">Q${currentQ.number}</span>
-      <div class="question-text">${currentQ.text}</div>
-      <div class="options">
-        ${currentQ.options.map((opt, i) => {
-          const isSelected = answers[currentQ.number] === i;
-          const isAnswered = answers[currentQ.number] !== undefined;
-          const isCorrect = i === currentQ.answer;
-          let classes = 'option';
-          if (isSelected) classes += ' selected';
-          if (isAnswered && isCorrect) classes += ' correct';
-          if (isAnswered && isSelected && !isCorrect) classes += ' incorrect';
-
-          return `<div class="${classes}" onclick="selectOption(${currentQ.number}, ${i})">
-            <span class="option-marker">${String.fromCharCode(65 + i)}</span>
-            <span class="option-text">${opt}</span>
-          </div>`;
-        }).join('')}
+      <div class="question-meta">
+        <span class="question-number">Q${q.number}</span>
+        <span class="question-category">${q.category}</span>
       </div>
-      ${answers[currentQ.number] !== undefined && currentQ.explanation ? `
-        <div class="explanation">
-          <div class="explanation-title">💡 Explanation</div>
-          <p class="explanation-text">${currentQ.explanation}</p>
+      <div class="question-text">${q.text}</div>
+
+      ${!isRevealed ? `
+        <button class="reveal-btn" onclick="revealAnswer(${q.number})">👁️ Reveal Answer</button>
+      ` : `
+        <div class="answer-card">
+          <div class="answer-label">Answer</div>
+          <p class="answer-text">${q.answer}</p>
         </div>
-      ` : ''}
+      `}
     </div>
 
     <div class="quiz-nav">
-      <button class="quiz-btn secondary" onclick="prevQuestion()" ${currentIndex === 0 ? 'disabled' : ''}>← Previous</button>
+      <button class="quiz-btn secondary" onclick="prevQ()" ${currentIndex === 0 ? 'disabled' : ''}>← Previous</button>
       ${currentIndex < filtered.length - 1 ?
-        `<button class="quiz-btn primary" onclick="nextQuestion()">Next →</button>` :
-        `<button class="quiz-btn primary" onclick="showResults()">See Results →</button>`
+        `<button class="quiz-btn primary" onclick="nextQ()">Next →</button>` :
+        `<button class="quiz-btn primary" onclick="resetQuiz()">Start Over ↻</button>`
       }
     </div>
   `;
-
-  app.innerHTML = html;
 }
 
-function setLevel(level) {
-  currentLevel = level;
+function setCategory(cat) {
+  currentCat = cat;
   currentIndex = 0;
   renderQuiz();
 }
 
-function selectOption(qNum, optionIndex) {
-  if (answers[qNum] !== undefined) return;
-  answers[qNum] = optionIndex;
+function revealAnswer(qNum) {
+  revealed[qNum] = true;
   renderQuiz();
 }
 
-function nextQuestion() {
-  const filtered = questions.filter(LEVELS[currentLevel].filter);
+function nextQ() {
+  const filtered = questions.filter(CATEGORIES[currentCat].filter);
   if (currentIndex < filtered.length - 1) {
     currentIndex++;
     renderQuiz();
   }
 }
 
-function prevQuestion() {
+function prevQ() {
   if (currentIndex > 0) {
     currentIndex--;
     renderQuiz();
   }
 }
 
-function showResults() {
-  const filtered = questions.filter(LEVELS[currentLevel].filter);
-  const answered = filtered.filter(q => answers[q.number] !== undefined);
-  const correct = answered.filter(q => answers[q.number] === q.answer).length;
-
-  const percentage = answered.length > 0 ? Math.round((correct / answered.length) * 100) : 0;
-
-  let emoji, message;
-  if (percentage >= 90) { emoji = '🎉'; message = 'Excellent! You\'re ready for the next level!'; }
-  else if (percentage >= 70) { emoji = '👍'; message = 'Good job! Keep practicing to improve.'; }
-  else if (percentage >= 50) { emoji = '📚'; message = 'Not bad! Review the explanations and try again.'; }
-  else { emoji = '💪'; message = 'Keep learning! You\'ll get better with practice.'; }
-
-  document.getElementById('quiz-app').innerHTML = `
-    <div class="results-card">
-      <div class="results-icon">${emoji}</div>
-      <div class="results-score">${percentage}%</div>
-      <div class="results-message">${message}</div>
-      <div class="results-details">
-        <div class="result-stat">
-          <div class="result-stat-value">${answered.length}</div>
-          <div class="result-stat-label">Answered</div>
-        </div>
-        <div class="result-stat">
-          <div class="result-stat-value" style="color: var(--success)">${correct}</div>
-          <div class="result-stat-label">Correct</div>
-        </div>
-        <div class="result-stat">
-          <div class="result-stat-value" style="color: var(--danger)">${answered.length - correct}</div>
-          <div class="result-stat-label">Incorrect</div>
-        </div>
-      </div>
-      <button class="quiz-btn primary" onclick="resetQuiz()">Try Again</button>
-    </div>
-  `;
-}
-
 function resetQuiz() {
-  answers = {};
   currentIndex = 0;
+  revealed = {};
   renderQuiz();
 }
 
@@ -578,17 +440,19 @@ const params = new URLSearchParams(window.location.search);
 const file = params.get('file');
 
 if (!file) {
-  document.getElementById('quiz-app').innerHTML = '<div class="error">No file specified. Use ?file=filename.md</div>';
+  document.getElementById('quiz-app').innerHTML = '<div class="question-card"><p>No file specified. Use ?file=filename.md</p></div>';
 } else if (!file.includes('quizzes')) {
-  // Non-quiz files - use simple viewer
+  // Non-quiz files - use document viewer
   const url = 'https://raw.githubusercontent.com/projectamazonph/ppc-tools-for-va/main/' + file;
   fetch(url)
     .then(r => r.text())
     .then(md => {
-      document.getElementById('quiz-app').innerHTML = `<div class="question-card" style="max-width:800px;margin:2rem auto;">
-        ${marked.parse(md)}
-      </div>`;
+      const converter = new marked.Marked();
+      document.getElementById('quiz-app').innerHTML = `<div class="doc-viewer">${converter.parse(md)}</div>`;
       document.getElementById('doc-title').textContent = file.split('/').pop().replace('.md','');
+    })
+    .catch(err => {
+      document.getElementById('quiz-app').innerHTML = '<div class="question-card"><p>Error loading: ' + err.message + '</p></div>';
     });
 } else {
   const url = 'https://raw.githubusercontent.com/projectamazonph/ppc-tools-for-va/main/' + file;
@@ -601,7 +465,7 @@ if (!file) {
       renderQuiz();
     })
     .catch(err => {
-      document.getElementById('quiz-app').innerHTML = '<div class="error">Error loading quiz: ' + err.message + '</div>';
+      document.getElementById('quiz-app').innerHTML = '<div class="question-card"><p>Error: ' + err.message + '</p></div>';
     });
 }
 </script>
